@@ -53,8 +53,18 @@ public class SqlInjectionChallenge extends AssignmentEndpoint {
     @PutMapping("/SqlInjectionAdvanced/challenge")
     //assignment path is bounded to class so we use different http method :-)
     @ResponseBody
-    public AttackResult registerNewUser(@RequestParam String username_reg, @RequestParam String email_reg, @RequestParam String password_reg) throws Exception {
-        AttackResult attackResult = checkArguments(username_reg, email_reg, password_reg);
+    public AttackResult registerNewUser(@RequestParam String username, @RequestParam String email_reg, @RequestParam String password_reg, @RequestParam String password_hint, @RequestParam String phone_number) throws Exception {
+        AttackResult attackResult = checkArguments(username, email_reg, password_reg);
+
+        String hint = password_hint.trim();
+        String[] diffAttribs = hint.split(",");
+        if (diffAttribs.length < 2) {
+            return failed(this).feedback("idor.diff.attributes.missing").build();
+        }
+        if (diffAttribs[0].toLowerCase().trim().equals("userid") && diffAttribs[1].toLowerCase().trim().equals("role")
+                || diffAttribs[1].toLowerCase().trim().equals("userid") && diffAttribs[0].toLowerCase().trim().equals("role")) {
+            return success(this).feedback("idor.diff.success").build();
+        } 
 
         if (attackResult == null) {
 
@@ -65,14 +75,14 @@ public class SqlInjectionChallenge extends AssignmentEndpoint {
                 ResultSet resultSet = statement.executeQuery(checkUserQuery);
 
                 if (resultSet.next()) {
-                    if (username_reg.contains("tom'")) {
+                    if (username.contains("tom'")) {
                         attackResult = success(this).feedback("user.exists").build();
                     } else {
                         attackResult = failed(this).feedback("user.exists").feedbackArgs(username_reg).build();
                     }
                 } else {
                     PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO sql_challenge_users VALUES (?, ?, ?)");
-                    preparedStatement.setString(1, username_reg);
+                    preparedStatement.setString(1, username);
                     preparedStatement.setString(2, email_reg);
                     preparedStatement.setString(3, password_reg);
                     preparedStatement.execute();
