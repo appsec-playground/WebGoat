@@ -30,7 +30,10 @@ import io.restassured.RestAssured;
 import org.owasp.webgoat.lessons.jwt.JWTSecretKeyEndpoint;
 
 public class JWTLessonIntegrationTest extends IntegrationTest {
-	
+	static final shhhhh = "XQMOED0FK1ENBT4UHG3TY5BZL6FH7EGT8YOPSDF9NPSDU0FKT0WEUR0LKG0SDDFT";
+    static final aws_key = "XQMOED0FK1ENBT4UHG3TY5BZL6FH7EGT8YOPSDF9NPSDU0FKT0WEUR0LKG0SDDAK";    
+    static final aws_access_key = "XQMOED0FK1ENBT4UHG3TY5BZL6FH7EGT8YOPSDF9NPSDU0FKT0WEUR0LKG0SDDFR";
+    
     @Test
     public void solveAssignment() throws IOException, InvalidKeyException, NoSuchAlgorithmException {
     	startLesson("JWT");

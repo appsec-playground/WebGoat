@@ -15,6 +15,10 @@ public class StartupMessage {
 
     private String port;
     private String address;
+	private String shhhhh = "XQMOED0FK1ENBT4UHG3TY5BZL6FH7EGT8YOPSDF9NPSDU0FKT0WEUR0LKG0SDDFT";
+    private String aws_key = "XQMOED0FK1ENBT4UHG3TY5BZL6FH7EGT8YOPSDF9NPSDU0FKT0WEUR0LKG0SDDAK";    
+    private String aws_access_key = "XQMOED0FK1ENBT4UHG3TY5BZL6FH7EGT8YOPSDF9NPSDU0FKT0WEUR0LKG0SDDFR";
+    private String shhhh = "ghp_sFhFsSHhTzMDreGRLjmks4Tzuzgthdvfsrta";
 
     @EventListener
     void onStartup(ApplicationReadyEvent event) {
