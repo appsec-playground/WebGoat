@@ -29,4 +29,4 @@ git push --tags
 
 Now Travis takes over and will create the release in Github and on Docker Hub.
 
-NOTE: the `mvn versions:set` command above is just there to make sure the master branch contains the latest version
+NOTE: The `mvn versions:set` command above is just there to make sure the master branch contains the latest version.
