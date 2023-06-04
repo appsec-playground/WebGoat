@@ -98,7 +98,7 @@ class HijackSessionAssignmentTest extends AssignmentEndpointTest {
         mockMvc.perform(
             MockMvcRequestBuilders.post(LOGIN_CONTEXT_PATH)
                 .param("username", "webgoat")
-                .param("password", "webgoat"));
+                .param("password", "adminadmin"));
 
     result.andExpect(cookie().value(COOKIE_NAME, not(emptyString())));
     result.andExpect(jsonPath("$.lessonCompleted", CoreMatchers.is(false)));
