@@ -111,4 +111,24 @@ public class MissingFunctionACUsers {
     // TODO implement delete method with id param and authorization
 
   }
+
+  @PostMapping(
+      path = {"access-control/users/list", "access-control/users-admin-add"},
+      consumes = "application/json",
+      produces = "application/json")
+  @ResponseBody
+  public User addUser(@RequestBody User newUser) {
+    try {
+      userRepository.save(newUser);
+      return newUser;
+    } catch (Exception ex) {
+      log.error("Error creating new User", ex);
+      return null;
+    }
+
+    // @RequestMapping(path = {"user/{username}","/"}, method = RequestMethod.DELETE, consumes =
+    // "application/json", produces = "application/json")
+    // TODO implement delete method with id param and authorization
+
+  }
 }
