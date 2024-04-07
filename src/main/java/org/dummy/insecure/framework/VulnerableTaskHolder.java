@@ -17,7 +17,7 @@ public class VulnerableTaskHolder implements Serializable {
   private String taskName;
   private String taskAction;
   private LocalDateTime requestedExecutionTime;
-
+  private static final String DB_PASSWORD = "dbking123!";
   public VulnerableTaskHolder(String taskName, String taskAction) {
     super();
     this.taskName = taskName;
