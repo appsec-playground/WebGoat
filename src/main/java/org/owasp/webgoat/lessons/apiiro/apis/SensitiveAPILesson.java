@@ -67,4 +67,12 @@ public class SensitiveAPILesson extends AssignmentEndpoint {
         return userDetails;
     }
 
+    @GetMapping("/access-control/list-organization-owners")
+    @ResponseBody
+    public UserDetails gUserDetails() {
+        UserDetails userDetails = UserDetails.getAdmin();
+        LOGGER.debug( "Sending user details to {} on {} ",userDetails.getFirstName(), userDetails.getPhoneNumber() );
+        return userDetails;
+    }
+
 }
