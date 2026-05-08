@@ -1,10 +1,11 @@
 module google.golang.org/grpc/examples
 
-go 1.11
+go 1.24.0
+
+toolchain go1.24.13
 
 require (
-	google.golang.org/grpc v1.29.0
-	github.com/prometheus/client_golang v1.0.0
-	golang.org/x/text v0.3.6
+	github.com/prometheus/client_golang v1.21.1
+	golang.org/x/text v0.32.0
+	google.golang.org/grpc v1.79.3
 )
-
