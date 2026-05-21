@@ -138,6 +138,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <thymeleaf.version>3.0.15.RELEASE</thymeleaf.version>
+    <tomcat.version>9.0.110</tomcat.version>
     <webdriver.version>4.3.1</webdriver.version>
     <webgoat.port>8080</webgoat.port>
     <webwolf.port>9090</webwolf.port>
@@ -247,6 +248,18 @@
         <groupId>org.jruby</groupId>
         <artifactId>jruby</artifactId>
         <version>9.3.6.0</version>
+      </dependency>
+      <!--
+        Pin transitive Apache Tomcat dependencies to a fixed version. WebGoat itself
+        runs on Undertow (spring-boot-starter-tomcat is excluded above), but
+        tomcat-catalina/tomcat-coyote can be pulled in transitively (e.g. through
+        asciidoctorj -> jruby-stdlib fixtures), which surfaced an old 7.0.27 copy
+        with multiple Critical CVEs. Forcing 9.0.110 closes those.
+      -->
+      <dependency>
+        <groupId>org.apache.tomcat</groupId>
+        <artifactId>tomcat-catalina</artifactId>
+        <version>${tomcat.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
