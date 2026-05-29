@@ -14069,7 +14069,9 @@ $.widget( "ui.tabs", {
 	},
 
 	_sanitizeSelector: function( hash ) {
-		return hash ? hash.replace( /[!"$%&'()*+,.\/:;<=>?@\[\]\^`{|}~]/g, "\\$&" ) : "";
+		// Escape CSS selector meta-characters, including backslash itself so
+		// that user-controlled strings cannot subvert the escaping (CWE-116).
+		return hash ? hash.replace( /[!"$%&'()*+,.\/:;<=>?@\[\\\]\^`{|}~]/g, "\\$&" ) : "";
 	},
 
 	refresh: function() {
