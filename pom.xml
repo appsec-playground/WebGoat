@@ -137,7 +137,11 @@
     <!-- Use UTF-8 Encoding -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <thymeleaf.version>3.0.15.RELEASE</thymeleaf.version>
+    <thymeleaf.version>3.1.5.RELEASE</thymeleaf.version>
+    <!-- Override Spring Boot's managed version (3.0.4.RELEASE) so the extras module is
+         compatible with Thymeleaf 3.1.x; required because Thymeleaf 3.1 reworked some
+         expression-object APIs that the 3.0.x extras still reference. -->
+    <thymeleaf-extras-springsecurity.version>3.1.2.RELEASE</thymeleaf-extras-springsecurity.version>
     <webdriver.version>4.3.1</webdriver.version>
     <webgoat.port>8080</webgoat.port>
     <webwolf.port>9090</webwolf.port>
