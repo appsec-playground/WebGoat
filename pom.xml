@@ -138,6 +138,10 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <thymeleaf.version>3.0.15.RELEASE</thymeleaf.version>
+    <!-- Override Spring Boot's managed Undertow version to address transitive CVEs in 2.2.18.Final.
+         Spring Boot's BOM uses the undertow.version property for undertow-core, undertow-servlet,
+         and undertow-websockets-jsr. -->
+    <undertow.version>2.2.39.Final</undertow.version>
     <webdriver.version>4.3.1</webdriver.version>
     <webgoat.port>8080</webgoat.port>
     <webwolf.port>9090</webwolf.port>
