@@ -137,6 +137,8 @@
     <!-- Use UTF-8 Encoding -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <!-- Override Spring Boot 2.7.1's managed Spring Security 5.7.2 to patch CVEs in spring-security-core (CWE-863/287/862/639/208). 5.7.14 is the nearest fix on the 5.7.x line and is compatible with Spring Boot 2.7.x. -->
+    <spring-security.version>5.7.14</spring-security.version>
     <thymeleaf.version>3.0.15.RELEASE</thymeleaf.version>
     <webdriver.version>4.3.1</webdriver.version>
     <webgoat.port>8080</webgoat.port>
