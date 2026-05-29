@@ -373,7 +373,11 @@ $.fn.ajaxSubmit = function(options) {
         s.context = s.context || s;
         id = 'jqFormIO' + (new Date().getTime());
         if (s.iframeTarget) {
-            $io = $(s.iframeTarget);
+            // SECURITY: Only treat string `iframeTarget` values as CSS selectors.
+            // `$(stringStartingWith('<'))` would parse the value as HTML and could
+            // execute attacker-controlled markup (CWE-79/CWE-116). `$(document).find()`
+            // accepts selectors only and never constructs DOM from strings.
+            $io = typeof s.iframeTarget === 'string' ? $(document).find(s.iframeTarget) : $(s.iframeTarget);
             n = $io.attr2('name');
             if (!n) {
                 $io.attr2('name', id);
