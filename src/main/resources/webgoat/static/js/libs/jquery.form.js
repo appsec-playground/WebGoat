@@ -89,6 +89,31 @@ $.fn.attr2 = function() {
 /**
  * ajaxSubmit() provides a mechanism for immediately submitting
  * an HTML form using AJAX.
+ *
+ * SECURITY NOTE — Options that can lead to cross-site scripting (XSS):
+ *
+ *   options.target        A jQuery selector identifying an element that
+ *                         will receive the server response. The response
+ *                         body is inserted as HTML via jQuery's .html()
+ *                         method (or .replaceWith() when replaceTarget is
+ *                         true). Any script-bearing markup returned by
+ *                         the server will execute in the page's origin.
+ *                         The CALLER is responsible for ensuring the
+ *                         endpoint only returns trusted HTML, or for
+ *                         sanitizing the response in a success callback.
+ *
+ *   options.replaceTarget When true, the server response replaces the
+ *                         target element instead of being inserted into
+ *                         it. Same HTML-injection caveats as options.target.
+ *
+ *   options.url           Forwarded to jQuery.ajax(); callers should
+ *                         validate untrusted URL input before passing it
+ *                         in to avoid SSRF / open-redirect issues.
+ *
+ * Do NOT pass attacker-controlled values to these options without first
+ * sanitizing the server response (e.g. via DOMPurify) or restricting the
+ * data type (e.g. set options.dataType to 'json' or 'text' so dynamic
+ * HTML construction does not occur).
  */
 $.fn.ajaxSubmit = function(options) {
     /*jshint scripturl:true */
@@ -186,6 +211,17 @@ $.fn.ajaxSubmit = function(options) {
     }
 
     // perform a load on the target only if dataType is not provided
+    //
+    // SECURITY: the server response `data` is inserted into the DOM as
+    // HTML via .html() / .replaceWith(). This can lead to XSS if the
+    // endpoint returns untrusted markup. Callers who want to display
+    // a server response that may contain user-controlled content should
+    // either:
+    //   - set options.dataType (e.g. 'text' or 'json') so this branch is
+    //     skipped and the response is not interpreted as HTML, or
+    //   - omit options.target and handle the response in options.success
+    //     after sanitizing it (e.g. via DOMPurify or jQuery's .text()).
+    // See the option documentation on $.fn.ajaxSubmit above.
     if (!options.dataType && options.target) {
         var oldSuccess = options.success || function(){};
         callbacks.push(function(data) {
