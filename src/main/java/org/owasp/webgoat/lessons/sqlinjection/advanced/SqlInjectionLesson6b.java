@@ -47,7 +47,8 @@ public class SqlInjectionLesson6b extends AssignmentEndpoint {
   @PostMapping("/SqlInjectionAdvanced/attack6b")
   @ResponseBody
   public AttackResult completed(@RequestParam String userid_6b) throws IOException {
-    if (userid_6b.equals(getPassword())) {
+    String expectedPassword = getPassword();
+    if (expectedPassword != null && expectedPassword.equals(userid_6b)) {
       return success(this).build();
     } else {
       return failed(this).build();
@@ -55,7 +56,7 @@ public class SqlInjectionLesson6b extends AssignmentEndpoint {
   }
 
   protected String getPassword() {
-    String password = "dave";
+    String password = null;
     try (Connection connection = dataSource.getConnection()) {
       String query = "SELECT password FROM user_system_data WHERE user_name = 'dave'";
       try {
@@ -75,6 +76,6 @@ public class SqlInjectionLesson6b extends AssignmentEndpoint {
       e.printStackTrace();
       // do nothing
     }
-    return (password);
+    return password;
   }
 }
