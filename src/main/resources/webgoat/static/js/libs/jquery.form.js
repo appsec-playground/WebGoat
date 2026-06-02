@@ -383,7 +383,12 @@ $.fn.ajaxSubmit = function(options) {
             }
         }
         else {
-            $io = $('<iframe name="' + id + '" src="'+ s.iframeSrc +'" />');
+            // Construct the iframe via DOM/attr APIs instead of HTML string
+            // concatenation so jQuery escapes attribute values. This prevents
+            // an attacker-controlled `s.iframeSrc` (or `id`) from breaking out
+            // of the attribute context and injecting markup that could lead to
+            // cross-site scripting (CWE-79, CWE-116).
+            $io = $('<iframe />').attr({ name: id, src: s.iframeSrc });
             $io.css({ position: 'absolute', top: '-1000px', left: '-1000px' });
         }
         io = $io[0];
